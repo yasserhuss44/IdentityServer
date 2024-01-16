@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "dgSpecHash": "IzApKO059Y6/Ao2BjVttNhuK97LeHROo1XZAu8RZ5cKWBU4OIikDp43e7E9O4XbqkXL6VWNH8yjzvcmQUNSDIg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\MICROSOFT\\source\\repos\\Microtec\\IdentityServer\\MvcClient\\MvcClient.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\MICROSOFT\\.nuget\\packages\\microsoft.aspnetcore.authentication.openidconnect\\6.0.6\\microsoft.aspnetcore.authentication.openidconnect.6.0.6.nupkg.sha512",
+    "C:\\Users\\MICROSOFT\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
+    "C:\\Users\\MICROSOFT\\.nuget\\packages\\microsoft.identitymodel.jsonwebtokens\\6.10.0\\microsoft.identitymodel.jsonwebtokens.6.10.0.nupkg.sha512",
+    "C:\\Users\\MICROSOFT\\.nuget\\packages\\microsoft.identitymodel.logging\\6.10.0\\microsoft.identitymodel.logging.6.10.0.nupkg.sha512",
+    "C:\\Users\\MICROSOFT\\.nuget\\packages\\microsoft.identitymodel.protocols\\6.10.0\\microsoft.identitymodel.protocols.6.10.0.nupkg.sha512",
+    "C:\\Users\\MICROSOFT\\.nuget\\packages\\microsoft.identitymodel.protocols.openidconnect\\6.10.0\\microsoft.identitymodel.protocols.openidconnect.6.10.0.nupkg.sha512",
+    "C:\\Users\\MICROSOFT\\.nuget\\packages\\microsoft.identitymodel.tokens\\6.10.0\\microsoft.identitymodel.tokens.6.10.0.nupkg.sha512",
+    "C:\\Users\\MICROSOFT\\.nuget\\packages\\system.identitymodel.tokens.jwt\\6.10.0\\system.identitymodel.tokens.jwt.6.10.0.nupkg.sha512",
+    "C:\\Users\\MICROSOFT\\.nuget\\packages\\system.security.cryptography.cng\\4.5.0\\system.security.cryptography.cng.4.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}

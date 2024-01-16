@@ -1,0 +1,933 @@
+2022-07-25 15:18:18.181 +03:00 [INF] Entity Framework Core 3.1.9 initialized 'ApplicationDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: MigrationsAssembly=IdentityServer_Ad, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null 
+2022-07-25 15:19:37.490 +03:00 [INF] Executed DbCommand (50,448ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+CREATE DATABASE [moda_Identity];
+2022-07-25 15:19:37.559 +03:00 [INF] Executed DbCommand (51ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+IF SERVERPROPERTY('EngineEdition') <> 5
+BEGIN
+    ALTER DATABASE [moda_Identity] SET READ_COMMITTED_SNAPSHOT ON;
+END;
+2022-07-25 15:19:39.288 +03:00 [INF] Executed DbCommand (88ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2022-07-25 15:19:39.708 +03:00 [INF] Executed DbCommand (140ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [__EFMigrationsHistory] (
+    [MigrationId] nvarchar(150) NOT NULL,
+    [ProductVersion] nvarchar(32) NOT NULL,
+    CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+);
+2022-07-25 15:19:39.765 +03:00 [INF] Executed DbCommand (47ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2022-07-25 15:19:39.893 +03:00 [INF] Executed DbCommand (118ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2022-07-25 15:19:40.014 +03:00 [INF] Executed DbCommand (110ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2022-07-25 15:19:40.136 +03:00 [INF] Applying migration '20220723211459_InitialDbMigration'.
+2022-07-25 15:19:40.315 +03:00 [INF] Executed DbCommand (49ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Tokens] (
+    [Id] uniqueidentifier NOT NULL,
+    [SubjectId] nvarchar(max) NULL,
+    [OTP] nvarchar(max) NULL,
+    [CreatedOn] datetime2 NOT NULL,
+    [ExpireOn] datetime2 NOT NULL,
+    [UserName] nvarchar(max) NULL,
+    CONSTRAINT [PK_Tokens] PRIMARY KEY ([Id])
+);
+2022-07-25 15:19:40.364 +03:00 [INF] Executed DbCommand (49ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220723211459_InitialDbMigration', N'3.1.9');
+2022-07-25 15:20:37.696 +03:00 [INF] Entity Framework Core 3.1.9 initialized 'ConfigurationDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: MigrationsAssembly=IdentityServer_Ad, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null 
+2022-07-25 15:20:39.290 +03:00 [INF] Executed DbCommand (123ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2022-07-25 15:20:39.417 +03:00 [INF] Executed DbCommand (78ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2022-07-25 15:20:39.470 +03:00 [INF] Executed DbCommand (48ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2022-07-25 15:20:39.515 +03:00 [INF] Executed DbCommand (44ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2022-07-25 15:20:39.585 +03:00 [INF] Executed DbCommand (45ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2022-07-25 15:20:39.656 +03:00 [INF] Applying migration '20220723224138_InitialDbMigration'.
+2022-07-25 15:20:40.205 +03:00 [INF] Executed DbCommand (49ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [ApiResources] (
+    [Id] int NOT NULL IDENTITY,
+    [Enabled] bit NOT NULL,
+    [Name] nvarchar(200) NOT NULL,
+    [DisplayName] nvarchar(200) NULL,
+    [Description] nvarchar(1000) NULL,
+    [AllowedAccessTokenSigningAlgorithms] nvarchar(100) NULL,
+    [ShowInDiscoveryDocument] bit NOT NULL,
+    [Created] datetime2 NOT NULL,
+    [Updated] datetime2 NULL,
+    [LastAccessed] datetime2 NULL,
+    [NonEditable] bit NOT NULL,
+    CONSTRAINT [PK_ApiResources] PRIMARY KEY ([Id])
+);
+2022-07-25 15:20:40.251 +03:00 [INF] Executed DbCommand (46ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [ApiScopes] (
+    [Id] int NOT NULL IDENTITY,
+    [Enabled] bit NOT NULL,
+    [Name] nvarchar(200) NOT NULL,
+    [DisplayName] nvarchar(200) NULL,
+    [Description] nvarchar(1000) NULL,
+    [Required] bit NOT NULL,
+    [Emphasize] bit NOT NULL,
+    [ShowInDiscoveryDocument] bit NOT NULL,
+    CONSTRAINT [PK_ApiScopes] PRIMARY KEY ([Id])
+);
+2022-07-25 15:20:40.346 +03:00 [INF] Executed DbCommand (94ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Clients] (
+    [Id] int NOT NULL IDENTITY,
+    [Enabled] bit NOT NULL,
+    [ClientId] nvarchar(200) NOT NULL,
+    [ProtocolType] nvarchar(200) NOT NULL,
+    [RequireClientSecret] bit NOT NULL,
+    [ClientName] nvarchar(200) NULL,
+    [Description] nvarchar(1000) NULL,
+    [ClientUri] nvarchar(2000) NULL,
+    [LogoUri] nvarchar(2000) NULL,
+    [RequireConsent] bit NOT NULL,
+    [AllowRememberConsent] bit NOT NULL,
+    [AlwaysIncludeUserClaimsInIdToken] bit NOT NULL,
+    [RequirePkce] bit NOT NULL,
+    [AllowPlainTextPkce] bit NOT NULL,
+    [RequireRequestObject] bit NOT NULL,
+    [AllowAccessTokensViaBrowser] bit NOT NULL,
+    [FrontChannelLogoutUri] nvarchar(2000) NULL,
+    [FrontChannelLogoutSessionRequired] bit NOT NULL,
+    [BackChannelLogoutUri] nvarchar(2000) NULL,
+    [BackChannelLogoutSessionRequired] bit NOT NULL,
+    [AllowOfflineAccess] bit NOT NULL,
+    [IdentityTokenLifetime] int NOT NULL,
+    [AllowedIdentityTokenSigningAlgorithms] nvarchar(100) NULL,
+    [AccessTokenLifetime] int NOT NULL,
+    [AuthorizationCodeLifetime] int NOT NULL,
+    [ConsentLifetime] int NULL,
+    [AbsoluteRefreshTokenLifetime] int NOT NULL,
+    [SlidingRefreshTokenLifetime] int NOT NULL,
+    [RefreshTokenUsage] int NOT NULL,
+    [UpdateAccessTokenClaimsOnRefresh] bit NOT NULL,
+    [RefreshTokenExpiration] int NOT NULL,
+    [AccessTokenType] int NOT NULL,
+    [EnableLocalLogin] bit NOT NULL,
+    [IncludeJwtId] bit NOT NULL,
+    [AlwaysSendClientClaims] bit NOT NULL,
+    [ClientClaimsPrefix] nvarchar(200) NULL,
+    [PairWiseSubjectSalt] nvarchar(200) NULL,
+    [Created] datetime2 NOT NULL,
+    [Updated] datetime2 NULL,
+    [LastAccessed] datetime2 NULL,
+    [UserSsoLifetime] int NULL,
+    [UserCodeType] nvarchar(100) NULL,
+    [DeviceCodeLifetime] int NOT NULL,
+    [NonEditable] bit NOT NULL,
+    CONSTRAINT [PK_Clients] PRIMARY KEY ([Id])
+);
+2022-07-25 15:20:40.393 +03:00 [INF] Executed DbCommand (47ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [IdentityResources] (
+    [Id] int NOT NULL IDENTITY,
+    [Enabled] bit NOT NULL,
+    [Name] nvarchar(200) NOT NULL,
+    [DisplayName] nvarchar(200) NULL,
+    [Description] nvarchar(1000) NULL,
+    [Required] bit NOT NULL,
+    [Emphasize] bit NOT NULL,
+    [ShowInDiscoveryDocument] bit NOT NULL,
+    [Created] datetime2 NOT NULL,
+    [Updated] datetime2 NULL,
+    [NonEditable] bit NOT NULL,
+    CONSTRAINT [PK_IdentityResources] PRIMARY KEY ([Id])
+);
+2022-07-25 15:20:40.441 +03:00 [INF] Executed DbCommand (47ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [ApiResourceClaims] (
+    [Id] int NOT NULL IDENTITY,
+    [Type] nvarchar(200) NOT NULL,
+    [ApiResourceId] int NOT NULL,
+    CONSTRAINT [PK_ApiResourceClaims] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_ApiResourceClaims_ApiResources_ApiResourceId] FOREIGN KEY ([ApiResourceId]) REFERENCES [ApiResources] ([Id]) ON DELETE CASCADE
+);
+2022-07-25 15:20:40.488 +03:00 [INF] Executed DbCommand (47ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [ApiResourceProperties] (
+    [Id] int NOT NULL IDENTITY,
+    [Key] nvarchar(250) NOT NULL,
+    [Value] nvarchar(2000) NOT NULL,
+    [ApiResourceId] int NOT NULL,
+    CONSTRAINT [PK_ApiResourceProperties] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_ApiResourceProperties_ApiResources_ApiResourceId] FOREIGN KEY ([ApiResourceId]) REFERENCES [ApiResources] ([Id]) ON DELETE CASCADE
+);
+2022-07-25 15:20:40.539 +03:00 [INF] Executed DbCommand (48ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [ApiResourceScopes] (
+    [Id] int NOT NULL IDENTITY,
+    [Scope] nvarchar(200) NOT NULL,
+    [ApiResourceId] int NOT NULL,
+    CONSTRAINT [PK_ApiResourceScopes] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_ApiResourceScopes_ApiResources_ApiResourceId] FOREIGN KEY ([ApiResourceId]) REFERENCES [ApiResources] ([Id]) ON DELETE CASCADE
+);
+2022-07-25 15:20:40.590 +03:00 [INF] Executed DbCommand (48ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [ApiResourceSecrets] (
+    [Id] int NOT NULL IDENTITY,
+    [Description] nvarchar(1000) NULL,
+    [Value] nvarchar(4000) NOT NULL,
+    [Expiration] datetime2 NULL,
+    [Type] nvarchar(250) NOT NULL,
+    [Created] datetime2 NOT NULL,
+    [ApiResourceId] int NOT NULL,
+    CONSTRAINT [PK_ApiResourceSecrets] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_ApiResourceSecrets_ApiResources_ApiResourceId] FOREIGN KEY ([ApiResourceId]) REFERENCES [ApiResources] ([Id]) ON DELETE CASCADE
+);
+2022-07-25 15:20:40.643 +03:00 [INF] Executed DbCommand (49ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [ApiScopeClaims] (
+    [Id] int NOT NULL IDENTITY,
+    [Type] nvarchar(200) NOT NULL,
+    [ScopeId] int NOT NULL,
+    CONSTRAINT [PK_ApiScopeClaims] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_ApiScopeClaims_ApiScopes_ScopeId] FOREIGN KEY ([ScopeId]) REFERENCES [ApiScopes] ([Id]) ON DELETE CASCADE
+);
+2022-07-25 15:20:40.695 +03:00 [INF] Executed DbCommand (46ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [ApiScopeProperties] (
+    [Id] int NOT NULL IDENTITY,
+    [Key] nvarchar(250) NOT NULL,
+    [Value] nvarchar(2000) NOT NULL,
+    [ScopeId] int NOT NULL,
+    CONSTRAINT [PK_ApiScopeProperties] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_ApiScopeProperties_ApiScopes_ScopeId] FOREIGN KEY ([ScopeId]) REFERENCES [ApiScopes] ([Id]) ON DELETE CASCADE
+);
+2022-07-25 15:20:40.742 +03:00 [INF] Executed DbCommand (46ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [ClientClaims] (
+    [Id] int NOT NULL IDENTITY,
+    [Type] nvarchar(250) NOT NULL,
+    [Value] nvarchar(250) NOT NULL,
+    [ClientId] int NOT NULL,
+    CONSTRAINT [PK_ClientClaims] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_ClientClaims_Clients_ClientId] FOREIGN KEY ([ClientId]) REFERENCES [Clients] ([Id]) ON DELETE CASCADE
+);
+2022-07-25 15:20:40.789 +03:00 [INF] Executed DbCommand (47ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [ClientCorsOrigins] (
+    [Id] int NOT NULL IDENTITY,
+    [Origin] nvarchar(150) NOT NULL,
+    [ClientId] int NOT NULL,
+    CONSTRAINT [PK_ClientCorsOrigins] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_ClientCorsOrigins_Clients_ClientId] FOREIGN KEY ([ClientId]) REFERENCES [Clients] ([Id]) ON DELETE CASCADE
+);
+2022-07-25 15:20:40.837 +03:00 [INF] Executed DbCommand (47ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [ClientGrantTypes] (
+    [Id] int NOT NULL IDENTITY,
+    [GrantType] nvarchar(250) NOT NULL,
+    [ClientId] int NOT NULL,
+    CONSTRAINT [PK_ClientGrantTypes] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_ClientGrantTypes_Clients_ClientId] FOREIGN KEY ([ClientId]) REFERENCES [Clients] ([Id]) ON DELETE CASCADE
+);
+2022-07-25 15:20:42.725 +03:00 [INF] Executed DbCommand (54ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [ClientIdPRestrictions] (
+    [Id] int NOT NULL IDENTITY,
+    [Provider] nvarchar(200) NOT NULL,
+    [ClientId] int NOT NULL,
+    CONSTRAINT [PK_ClientIdPRestrictions] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_ClientIdPRestrictions_Clients_ClientId] FOREIGN KEY ([ClientId]) REFERENCES [Clients] ([Id]) ON DELETE CASCADE
+);
+2022-07-25 15:20:42.780 +03:00 [INF] Executed DbCommand (53ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [ClientPostLogoutRedirectUris] (
+    [Id] int NOT NULL IDENTITY,
+    [PostLogoutRedirectUri] nvarchar(2000) NOT NULL,
+    [ClientId] int NOT NULL,
+    CONSTRAINT [PK_ClientPostLogoutRedirectUris] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_ClientPostLogoutRedirectUris_Clients_ClientId] FOREIGN KEY ([ClientId]) REFERENCES [Clients] ([Id]) ON DELETE CASCADE
+);
+2022-07-25 15:20:42.828 +03:00 [INF] Executed DbCommand (47ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [ClientProperties] (
+    [Id] int NOT NULL IDENTITY,
+    [Key] nvarchar(250) NOT NULL,
+    [Value] nvarchar(2000) NOT NULL,
+    [ClientId] int NOT NULL,
+    CONSTRAINT [PK_ClientProperties] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_ClientProperties_Clients_ClientId] FOREIGN KEY ([ClientId]) REFERENCES [Clients] ([Id]) ON DELETE CASCADE
+);
+2022-07-25 15:20:42.874 +03:00 [INF] Executed DbCommand (46ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [ClientRedirectUris] (
+    [Id] int NOT NULL IDENTITY,
+    [RedirectUri] nvarchar(2000) NOT NULL,
+    [ClientId] int NOT NULL,
+    CONSTRAINT [PK_ClientRedirectUris] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_ClientRedirectUris_Clients_ClientId] FOREIGN KEY ([ClientId]) REFERENCES [Clients] ([Id]) ON DELETE CASCADE
+);
+2022-07-25 15:20:42.922 +03:00 [INF] Executed DbCommand (46ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [ClientScopes] (
+    [Id] int NOT NULL IDENTITY,
+    [Scope] nvarchar(200) NOT NULL,
+    [ClientId] int NOT NULL,
+    CONSTRAINT [PK_ClientScopes] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_ClientScopes_Clients_ClientId] FOREIGN KEY ([ClientId]) REFERENCES [Clients] ([Id]) ON DELETE CASCADE
+);
+2022-07-25 15:20:42.971 +03:00 [INF] Executed DbCommand (47ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [ClientSecrets] (
+    [Id] int NOT NULL IDENTITY,
+    [Description] nvarchar(2000) NULL,
+    [Value] nvarchar(4000) NOT NULL,
+    [Expiration] datetime2 NULL,
+    [Type] nvarchar(250) NOT NULL,
+    [Created] datetime2 NOT NULL,
+    [ClientId] int NOT NULL,
+    CONSTRAINT [PK_ClientSecrets] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_ClientSecrets_Clients_ClientId] FOREIGN KEY ([ClientId]) REFERENCES [Clients] ([Id]) ON DELETE CASCADE
+);
+2022-07-25 15:20:43.020 +03:00 [INF] Executed DbCommand (46ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [IdentityResourceClaims] (
+    [Id] int NOT NULL IDENTITY,
+    [Type] nvarchar(200) NOT NULL,
+    [IdentityResourceId] int NOT NULL,
+    CONSTRAINT [PK_IdentityResourceClaims] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_IdentityResourceClaims_IdentityResources_IdentityResourceId] FOREIGN KEY ([IdentityResourceId]) REFERENCES [IdentityResources] ([Id]) ON DELETE CASCADE
+);
+2022-07-25 15:20:43.072 +03:00 [INF] Executed DbCommand (50ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [IdentityResourceProperties] (
+    [Id] int NOT NULL IDENTITY,
+    [Key] nvarchar(250) NOT NULL,
+    [Value] nvarchar(2000) NOT NULL,
+    [IdentityResourceId] int NOT NULL,
+    CONSTRAINT [PK_IdentityResourceProperties] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_IdentityResourceProperties_IdentityResources_IdentityResourceId] FOREIGN KEY ([IdentityResourceId]) REFERENCES [IdentityResources] ([Id]) ON DELETE CASCADE
+);
+2022-07-25 15:20:43.118 +03:00 [INF] Executed DbCommand (45ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_ApiResourceClaims_ApiResourceId] ON [ApiResourceClaims] ([ApiResourceId]);
+2022-07-25 15:20:43.163 +03:00 [INF] Executed DbCommand (45ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_ApiResourceProperties_ApiResourceId] ON [ApiResourceProperties] ([ApiResourceId]);
+2022-07-25 15:20:43.843 +03:00 [INF] Executed DbCommand (52ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX [IX_ApiResources_Name] ON [ApiResources] ([Name]);
+2022-07-25 15:20:43.895 +03:00 [INF] Executed DbCommand (50ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_ApiResourceScopes_ApiResourceId] ON [ApiResourceScopes] ([ApiResourceId]);
+2022-07-25 15:20:43.943 +03:00 [INF] Executed DbCommand (46ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_ApiResourceSecrets_ApiResourceId] ON [ApiResourceSecrets] ([ApiResourceId]);
+2022-07-25 15:20:43.992 +03:00 [INF] Executed DbCommand (47ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_ApiScopeClaims_ScopeId] ON [ApiScopeClaims] ([ScopeId]);
+2022-07-25 15:20:44.040 +03:00 [INF] Executed DbCommand (47ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_ApiScopeProperties_ScopeId] ON [ApiScopeProperties] ([ScopeId]);
+2022-07-25 15:20:44.087 +03:00 [INF] Executed DbCommand (46ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX [IX_ApiScopes_Name] ON [ApiScopes] ([Name]);
+2022-07-25 15:20:44.135 +03:00 [INF] Executed DbCommand (47ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_ClientClaims_ClientId] ON [ClientClaims] ([ClientId]);
+2022-07-25 15:20:44.182 +03:00 [INF] Executed DbCommand (47ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_ClientCorsOrigins_ClientId] ON [ClientCorsOrigins] ([ClientId]);
+2022-07-25 15:20:44.231 +03:00 [INF] Executed DbCommand (48ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_ClientGrantTypes_ClientId] ON [ClientGrantTypes] ([ClientId]);
+2022-07-25 15:20:44.277 +03:00 [INF] Executed DbCommand (46ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_ClientIdPRestrictions_ClientId] ON [ClientIdPRestrictions] ([ClientId]);
+2022-07-25 15:20:44.324 +03:00 [INF] Executed DbCommand (46ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_ClientPostLogoutRedirectUris_ClientId] ON [ClientPostLogoutRedirectUris] ([ClientId]);
+2022-07-25 15:20:44.370 +03:00 [INF] Executed DbCommand (45ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_ClientProperties_ClientId] ON [ClientProperties] ([ClientId]);
+2022-07-25 15:20:44.419 +03:00 [INF] Executed DbCommand (48ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_ClientRedirectUris_ClientId] ON [ClientRedirectUris] ([ClientId]);
+2022-07-25 15:20:44.465 +03:00 [INF] Executed DbCommand (45ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX [IX_Clients_ClientId] ON [Clients] ([ClientId]);
+2022-07-25 15:20:44.513 +03:00 [INF] Executed DbCommand (48ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_ClientScopes_ClientId] ON [ClientScopes] ([ClientId]);
+2022-07-25 15:20:44.559 +03:00 [INF] Executed DbCommand (45ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_ClientSecrets_ClientId] ON [ClientSecrets] ([ClientId]);
+2022-07-25 15:20:44.607 +03:00 [INF] Executed DbCommand (47ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_IdentityResourceClaims_IdentityResourceId] ON [IdentityResourceClaims] ([IdentityResourceId]);
+2022-07-25 15:20:44.659 +03:00 [INF] Executed DbCommand (52ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_IdentityResourceProperties_IdentityResourceId] ON [IdentityResourceProperties] ([IdentityResourceId]);
+2022-07-25 15:20:44.707 +03:00 [INF] Executed DbCommand (47ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX [IX_IdentityResources_Name] ON [IdentityResources] ([Name]);
+2022-07-25 15:20:44.755 +03:00 [INF] Executed DbCommand (47ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220723224138_InitialDbMigration', N'3.1.9');
+2022-07-25 15:20:51.620 +03:00 [INF] Entity Framework Core 3.1.9 initialized 'PersistedGrantDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: MigrationsAssembly=IdentityServer_Ad, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null 
+2022-07-25 15:20:53.150 +03:00 [INF] Executed DbCommand (105ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2022-07-25 15:20:53.257 +03:00 [INF] Executed DbCommand (71ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2022-07-25 15:20:53.307 +03:00 [INF] Executed DbCommand (46ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2022-07-25 15:20:53.350 +03:00 [INF] Executed DbCommand (43ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2022-07-25 15:20:53.421 +03:00 [INF] Executed DbCommand (45ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2022-07-25 15:20:53.505 +03:00 [INF] Applying migration '20220723224201_InitialDbMigration'.
+2022-07-25 15:20:53.742 +03:00 [INF] Executed DbCommand (47ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [DeviceCodes] (
+    [UserCode] nvarchar(200) NOT NULL,
+    [DeviceCode] nvarchar(200) NOT NULL,
+    [SubjectId] nvarchar(200) NULL,
+    [SessionId] nvarchar(100) NULL,
+    [ClientId] nvarchar(200) NOT NULL,
+    [Description] nvarchar(200) NULL,
+    [CreationTime] datetime2 NOT NULL,
+    [Expiration] datetime2 NOT NULL,
+    [Data] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_DeviceCodes] PRIMARY KEY ([UserCode])
+);
+2022-07-25 15:20:53.791 +03:00 [INF] Executed DbCommand (48ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [PersistedGrants] (
+    [Key] nvarchar(200) NOT NULL,
+    [Type] nvarchar(50) NOT NULL,
+    [SubjectId] nvarchar(200) NULL,
+    [SessionId] nvarchar(100) NULL,
+    [ClientId] nvarchar(200) NOT NULL,
+    [Description] nvarchar(200) NULL,
+    [CreationTime] datetime2 NOT NULL,
+    [Expiration] datetime2 NULL,
+    [ConsumedTime] datetime2 NULL,
+    [Data] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_PersistedGrants] PRIMARY KEY ([Key])
+);
+2022-07-25 15:20:53.837 +03:00 [INF] Executed DbCommand (46ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX [IX_DeviceCodes_DeviceCode] ON [DeviceCodes] ([DeviceCode]);
+2022-07-25 15:20:53.882 +03:00 [INF] Executed DbCommand (45ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_DeviceCodes_Expiration] ON [DeviceCodes] ([Expiration]);
+2022-07-25 15:20:53.929 +03:00 [INF] Executed DbCommand (46ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_PersistedGrants_Expiration] ON [PersistedGrants] ([Expiration]);
+2022-07-25 15:20:53.981 +03:00 [INF] Executed DbCommand (49ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_PersistedGrants_SubjectId_ClientId_Type] ON [PersistedGrants] ([SubjectId], [ClientId], [Type]);
+2022-07-25 15:20:54.038 +03:00 [INF] Executed DbCommand (50ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_PersistedGrants_SubjectId_SessionId_Type] ON [PersistedGrants] ([SubjectId], [SessionId], [Type]);
+2022-07-25 15:20:54.090 +03:00 [INF] Executed DbCommand (47ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220723224201_InitialDbMigration', N'3.1.9');
+2022-07-25 15:22:19.644 +03:00 [INF] Seeding database...
+2022-07-25 15:22:29.798 +03:00 [INF] Done seeding database.
+2022-07-25 16:35:26.775 +03:00 [INF] Seeding database...
+2022-07-25 16:35:31.659 +03:00 [FTL] Host terminated unexpectedly
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while updating the entries. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot insert duplicate key row in object 'dbo.ApiScopes' with unique index 'IX_ApiScopes_Name'. The duplicate key value is (api1).
+The statement has been terminated.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at Microsoft.Data.SqlClient.SqlDataReader.get_MetaData()
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean isAsync, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+ClientConnectionId:2d540587-3c05-4103-bf02-fb3c02d91998
+Error Number:2601,State:1,Class:14
+ClientConnectionId before routing:32899ce2-4b92-46b4-a580-17af7e0ef8e6
+Routing Destination:b7edfac9c6f1.HS3.tr587.uaenorth1-a.worker.database.windows.net,11006
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.Execute(IEnumerable`1 commandBatches, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChanges(IList`1 entries)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(IList`1 entriesToSave)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(DbContext _, Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges()
+   at CustomIdentityServer4.Data.SeedData.EnsureSeedData(ConfigurationDbContext context) in C:\Users\user\source\repos\SDAIA-Backend\Moda\Identity-AD\Data\SeedData.cs:line 79
+   at CustomIdentityServer4.Data.SeedData.EnsureSeedData(String connectionString) in C:\Users\user\source\repos\SDAIA-Backend\Moda\Identity-AD\Data\SeedData.cs:line 38
+   at CustomIdentityServer4.Program.Main(String[] args) in C:\Users\user\source\repos\SDAIA-Backend\Moda\Identity-AD\Program.cs:line 42
+2022-07-25 16:35:54.459 +03:00 [INF] Seeding database...
+2022-07-25 16:35:56.706 +03:00 [FTL] Host terminated unexpectedly
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while updating the entries. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot insert duplicate key row in object 'dbo.ApiScopes' with unique index 'IX_ApiScopes_Name'. The duplicate key value is (api1).
+The statement has been terminated.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at Microsoft.Data.SqlClient.SqlDataReader.get_MetaData()
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean isAsync, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+ClientConnectionId:a4250781-b405-4eaa-871e-0beb4f39c51b
+Error Number:2601,State:1,Class:14
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.Execute(IEnumerable`1 commandBatches, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChanges(IList`1 entries)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(IList`1 entriesToSave)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(DbContext _, Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges()
+   at CustomIdentityServer4.Data.SeedData.EnsureSeedData(ConfigurationDbContext context) in C:\Users\user\source\repos\SDAIA-Backend\Moda\Identity-AD\Data\SeedData.cs:line 79
+   at CustomIdentityServer4.Data.SeedData.EnsureSeedData(String connectionString) in C:\Users\user\source\repos\SDAIA-Backend\Moda\Identity-AD\Data\SeedData.cs:line 38
+   at CustomIdentityServer4.Program.Main(String[] args) in C:\Users\user\source\repos\SDAIA-Backend\Moda\Identity-AD\Program.cs:line 42
+2022-07-25 16:36:29.440 +03:00 [INF] Entity Framework Core 3.1.9 initialized 'ApplicationDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: MigrationsAssembly=IdentityServer_Ad, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null 
+2022-07-25 16:36:29.738 +03:00 [INF] Executed DbCommand (15ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2022-07-25 16:36:29.762 +03:00 [INF] Executed DbCommand (15ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2022-07-25 16:36:29.765 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2022-07-25 16:36:29.766 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2022-07-25 16:36:29.785 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2022-07-25 16:36:29.801 +03:00 [INF] No migrations were applied. The database is already up to date.
+2022-07-25 16:36:35.588 +03:00 [INF] Entity Framework Core 3.1.9 initialized 'PersistedGrantDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: MigrationsAssembly=IdentityServer_Ad, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null 
+2022-07-25 16:36:35.854 +03:00 [INF] Executed DbCommand (15ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2022-07-25 16:36:35.877 +03:00 [INF] Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2022-07-25 16:36:35.880 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2022-07-25 16:36:35.880 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2022-07-25 16:36:35.890 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2022-07-25 16:36:35.903 +03:00 [INF] No migrations were applied. The database is already up to date.
+2022-07-25 16:36:42.272 +03:00 [INF] Entity Framework Core 3.1.9 initialized 'ConfigurationDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: MigrationsAssembly=IdentityServer_Ad, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null 
+2022-07-25 16:36:42.538 +03:00 [INF] Executed DbCommand (15ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2022-07-25 16:36:42.560 +03:00 [INF] Executed DbCommand (13ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2022-07-25 16:36:42.564 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2022-07-25 16:36:42.565 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2022-07-25 16:36:42.574 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2022-07-25 16:36:42.588 +03:00 [INF] No migrations were applied. The database is already up to date.
+2022-07-25 16:37:42.631 +03:00 [INF] Seeding database...
+2022-07-25 16:37:44.495 +03:00 [FTL] Host terminated unexpectedly
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while updating the entries. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Cannot insert duplicate key row in object 'dbo.ApiScopes' with unique index 'IX_ApiScopes_Name'. The duplicate key value is (api1).
+The statement has been terminated.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   at Microsoft.Data.SqlClient.SqlDataReader.get_MetaData()
+   at Microsoft.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean isAsync, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior)
+   at Microsoft.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReader(RelationalCommandParameterObject parameterObject)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+ClientConnectionId:82811b70-d3ea-4131-bcc8-76c3767a65ac
+Error Number:2601,State:1,Class:14
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.Execute(IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.Execute(IEnumerable`1 commandBatches, IRelationalConnection connection)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalDatabase.SaveChanges(IList`1 entries)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(IList`1 entriesToSave)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(DbContext _, Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.Execute[TState,TResult](TState state, Func`3 operation, Func`3 verifySucceeded)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges(Boolean acceptAllChangesOnSuccess)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChanges()
+   at CustomIdentityServer4.Data.SeedData.EnsureSeedData(ConfigurationDbContext context) in C:\Users\user\source\repos\SDAIA-Backend\Moda\Identity-AD\Data\SeedData.cs:line 79
+   at CustomIdentityServer4.Data.SeedData.EnsureSeedData(String connectionString) in C:\Users\user\source\repos\SDAIA-Backend\Moda\Identity-AD\Data\SeedData.cs:line 38
+   at CustomIdentityServer4.Program.Main(String[] args) in C:\Users\user\source\repos\SDAIA-Backend\Moda\Identity-AD\Program.cs:line 42
+2022-07-25 16:38:33.369 +03:00 [INF] Entity Framework Core 3.1.9 initialized 'ApplicationDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: MigrationsAssembly=IdentityServer_Ad, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null 
+2022-07-25 16:38:44.036 +03:00 [INF] Executed DbCommand (310ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+CREATE DATABASE [moda];
+2022-07-25 16:38:44.190 +03:00 [INF] Executed DbCommand (149ms) [Parameters=[], CommandType='"Text"', CommandTimeout='60']
+IF SERVERPROPERTY('EngineEdition') <> 5
+BEGIN
+    ALTER DATABASE [moda] SET READ_COMMITTED_SNAPSHOT ON;
+END;
+2022-07-25 16:38:44.214 +03:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2022-07-25 16:38:44.332 +03:00 [INF] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [__EFMigrationsHistory] (
+    [MigrationId] nvarchar(150) NOT NULL,
+    [ProductVersion] nvarchar(32) NOT NULL,
+    CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+);
+2022-07-25 16:38:44.334 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2022-07-25 16:38:44.354 +03:00 [INF] Executed DbCommand (18ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2022-07-25 16:38:44.360 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2022-07-25 16:38:44.378 +03:00 [INF] Applying migration '20220723211459_InitialDbMigration'.
+2022-07-25 16:38:44.402 +03:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Tokens] (
+    [Id] uniqueidentifier NOT NULL,
+    [SubjectId] nvarchar(max) NULL,
+    [OTP] nvarchar(max) NULL,
+    [CreatedOn] datetime2 NOT NULL,
+    [ExpireOn] datetime2 NOT NULL,
+    [UserName] nvarchar(max) NULL,
+    CONSTRAINT [PK_Tokens] PRIMARY KEY ([Id])
+);
+2022-07-25 16:38:44.405 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220723211459_InitialDbMigration', N'3.1.9');
+2022-07-25 16:39:01.698 +03:00 [INF] Entity Framework Core 3.1.9 initialized 'ConfigurationDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: MigrationsAssembly=IdentityServer_Ad, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null 
+2022-07-25 16:39:01.959 +03:00 [INF] Executed DbCommand (15ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2022-07-25 16:39:01.982 +03:00 [INF] Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2022-07-25 16:39:01.985 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2022-07-25 16:39:01.985 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2022-07-25 16:39:01.994 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2022-07-25 16:39:02.010 +03:00 [INF] Applying migration '20220723224138_InitialDbMigration'.
+2022-07-25 16:39:02.105 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [ApiResources] (
+    [Id] int NOT NULL IDENTITY,
+    [Enabled] bit NOT NULL,
+    [Name] nvarchar(200) NOT NULL,
+    [DisplayName] nvarchar(200) NULL,
+    [Description] nvarchar(1000) NULL,
+    [AllowedAccessTokenSigningAlgorithms] nvarchar(100) NULL,
+    [ShowInDiscoveryDocument] bit NOT NULL,
+    [Created] datetime2 NOT NULL,
+    [Updated] datetime2 NULL,
+    [LastAccessed] datetime2 NULL,
+    [NonEditable] bit NOT NULL,
+    CONSTRAINT [PK_ApiResources] PRIMARY KEY ([Id])
+);
+2022-07-25 16:39:02.108 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [ApiScopes] (
+    [Id] int NOT NULL IDENTITY,
+    [Enabled] bit NOT NULL,
+    [Name] nvarchar(200) NOT NULL,
+    [DisplayName] nvarchar(200) NULL,
+    [Description] nvarchar(1000) NULL,
+    [Required] bit NOT NULL,
+    [Emphasize] bit NOT NULL,
+    [ShowInDiscoveryDocument] bit NOT NULL,
+    CONSTRAINT [PK_ApiScopes] PRIMARY KEY ([Id])
+);
+2022-07-25 16:39:02.113 +03:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Clients] (
+    [Id] int NOT NULL IDENTITY,
+    [Enabled] bit NOT NULL,
+    [ClientId] nvarchar(200) NOT NULL,
+    [ProtocolType] nvarchar(200) NOT NULL,
+    [RequireClientSecret] bit NOT NULL,
+    [ClientName] nvarchar(200) NULL,
+    [Description] nvarchar(1000) NULL,
+    [ClientUri] nvarchar(2000) NULL,
+    [LogoUri] nvarchar(2000) NULL,
+    [RequireConsent] bit NOT NULL,
+    [AllowRememberConsent] bit NOT NULL,
+    [AlwaysIncludeUserClaimsInIdToken] bit NOT NULL,
+    [RequirePkce] bit NOT NULL,
+    [AllowPlainTextPkce] bit NOT NULL,
+    [RequireRequestObject] bit NOT NULL,
+    [AllowAccessTokensViaBrowser] bit NOT NULL,
+    [FrontChannelLogoutUri] nvarchar(2000) NULL,
+    [FrontChannelLogoutSessionRequired] bit NOT NULL,
+    [BackChannelLogoutUri] nvarchar(2000) NULL,
+    [BackChannelLogoutSessionRequired] bit NOT NULL,
+    [AllowOfflineAccess] bit NOT NULL,
+    [IdentityTokenLifetime] int NOT NULL,
+    [AllowedIdentityTokenSigningAlgorithms] nvarchar(100) NULL,
+    [AccessTokenLifetime] int NOT NULL,
+    [AuthorizationCodeLifetime] int NOT NULL,
+    [ConsentLifetime] int NULL,
+    [AbsoluteRefreshTokenLifetime] int NOT NULL,
+    [SlidingRefreshTokenLifetime] int NOT NULL,
+    [RefreshTokenUsage] int NOT NULL,
+    [UpdateAccessTokenClaimsOnRefresh] bit NOT NULL,
+    [RefreshTokenExpiration] int NOT NULL,
+    [AccessTokenType] int NOT NULL,
+    [EnableLocalLogin] bit NOT NULL,
+    [IncludeJwtId] bit NOT NULL,
+    [AlwaysSendClientClaims] bit NOT NULL,
+    [ClientClaimsPrefix] nvarchar(200) NULL,
+    [PairWiseSubjectSalt] nvarchar(200) NULL,
+    [Created] datetime2 NOT NULL,
+    [Updated] datetime2 NULL,
+    [LastAccessed] datetime2 NULL,
+    [UserSsoLifetime] int NULL,
+    [UserCodeType] nvarchar(100) NULL,
+    [DeviceCodeLifetime] int NOT NULL,
+    [NonEditable] bit NOT NULL,
+    CONSTRAINT [PK_Clients] PRIMARY KEY ([Id])
+);
+2022-07-25 16:39:02.115 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [IdentityResources] (
+    [Id] int NOT NULL IDENTITY,
+    [Enabled] bit NOT NULL,
+    [Name] nvarchar(200) NOT NULL,
+    [DisplayName] nvarchar(200) NULL,
+    [Description] nvarchar(1000) NULL,
+    [Required] bit NOT NULL,
+    [Emphasize] bit NOT NULL,
+    [ShowInDiscoveryDocument] bit NOT NULL,
+    [Created] datetime2 NOT NULL,
+    [Updated] datetime2 NULL,
+    [NonEditable] bit NOT NULL,
+    CONSTRAINT [PK_IdentityResources] PRIMARY KEY ([Id])
+);
+2022-07-25 16:39:02.118 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [ApiResourceClaims] (
+    [Id] int NOT NULL IDENTITY,
+    [Type] nvarchar(200) NOT NULL,
+    [ApiResourceId] int NOT NULL,
+    CONSTRAINT [PK_ApiResourceClaims] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_ApiResourceClaims_ApiResources_ApiResourceId] FOREIGN KEY ([ApiResourceId]) REFERENCES [ApiResources] ([Id]) ON DELETE CASCADE
+);
+2022-07-25 16:39:02.506 +03:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [ApiResourceProperties] (
+    [Id] int NOT NULL IDENTITY,
+    [Key] nvarchar(250) NOT NULL,
+    [Value] nvarchar(2000) NOT NULL,
+    [ApiResourceId] int NOT NULL,
+    CONSTRAINT [PK_ApiResourceProperties] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_ApiResourceProperties_ApiResources_ApiResourceId] FOREIGN KEY ([ApiResourceId]) REFERENCES [ApiResources] ([Id]) ON DELETE CASCADE
+);
+2022-07-25 16:39:02.516 +03:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [ApiResourceScopes] (
+    [Id] int NOT NULL IDENTITY,
+    [Scope] nvarchar(200) NOT NULL,
+    [ApiResourceId] int NOT NULL,
+    CONSTRAINT [PK_ApiResourceScopes] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_ApiResourceScopes_ApiResources_ApiResourceId] FOREIGN KEY ([ApiResourceId]) REFERENCES [ApiResources] ([Id]) ON DELETE CASCADE
+);
+2022-07-25 16:39:02.526 +03:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [ApiResourceSecrets] (
+    [Id] int NOT NULL IDENTITY,
+    [Description] nvarchar(1000) NULL,
+    [Value] nvarchar(4000) NOT NULL,
+    [Expiration] datetime2 NULL,
+    [Type] nvarchar(250) NOT NULL,
+    [Created] datetime2 NOT NULL,
+    [ApiResourceId] int NOT NULL,
+    CONSTRAINT [PK_ApiResourceSecrets] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_ApiResourceSecrets_ApiResources_ApiResourceId] FOREIGN KEY ([ApiResourceId]) REFERENCES [ApiResources] ([Id]) ON DELETE CASCADE
+);
+2022-07-25 16:39:02.531 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [ApiScopeClaims] (
+    [Id] int NOT NULL IDENTITY,
+    [Type] nvarchar(200) NOT NULL,
+    [ScopeId] int NOT NULL,
+    CONSTRAINT [PK_ApiScopeClaims] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_ApiScopeClaims_ApiScopes_ScopeId] FOREIGN KEY ([ScopeId]) REFERENCES [ApiScopes] ([Id]) ON DELETE CASCADE
+);
+2022-07-25 16:39:02.534 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [ApiScopeProperties] (
+    [Id] int NOT NULL IDENTITY,
+    [Key] nvarchar(250) NOT NULL,
+    [Value] nvarchar(2000) NOT NULL,
+    [ScopeId] int NOT NULL,
+    CONSTRAINT [PK_ApiScopeProperties] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_ApiScopeProperties_ApiScopes_ScopeId] FOREIGN KEY ([ScopeId]) REFERENCES [ApiScopes] ([Id]) ON DELETE CASCADE
+);
+2022-07-25 16:39:02.536 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [ClientClaims] (
+    [Id] int NOT NULL IDENTITY,
+    [Type] nvarchar(250) NOT NULL,
+    [Value] nvarchar(250) NOT NULL,
+    [ClientId] int NOT NULL,
+    CONSTRAINT [PK_ClientClaims] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_ClientClaims_Clients_ClientId] FOREIGN KEY ([ClientId]) REFERENCES [Clients] ([Id]) ON DELETE CASCADE
+);
+2022-07-25 16:39:02.538 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [ClientCorsOrigins] (
+    [Id] int NOT NULL IDENTITY,
+    [Origin] nvarchar(150) NOT NULL,
+    [ClientId] int NOT NULL,
+    CONSTRAINT [PK_ClientCorsOrigins] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_ClientCorsOrigins_Clients_ClientId] FOREIGN KEY ([ClientId]) REFERENCES [Clients] ([Id]) ON DELETE CASCADE
+);
+2022-07-25 16:39:02.540 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [ClientGrantTypes] (
+    [Id] int NOT NULL IDENTITY,
+    [GrantType] nvarchar(250) NOT NULL,
+    [ClientId] int NOT NULL,
+    CONSTRAINT [PK_ClientGrantTypes] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_ClientGrantTypes_Clients_ClientId] FOREIGN KEY ([ClientId]) REFERENCES [Clients] ([Id]) ON DELETE CASCADE
+);
+2022-07-25 16:39:02.542 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [ClientIdPRestrictions] (
+    [Id] int NOT NULL IDENTITY,
+    [Provider] nvarchar(200) NOT NULL,
+    [ClientId] int NOT NULL,
+    CONSTRAINT [PK_ClientIdPRestrictions] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_ClientIdPRestrictions_Clients_ClientId] FOREIGN KEY ([ClientId]) REFERENCES [Clients] ([Id]) ON DELETE CASCADE
+);
+2022-07-25 16:39:06.180 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [ClientPostLogoutRedirectUris] (
+    [Id] int NOT NULL IDENTITY,
+    [PostLogoutRedirectUri] nvarchar(2000) NOT NULL,
+    [ClientId] int NOT NULL,
+    CONSTRAINT [PK_ClientPostLogoutRedirectUris] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_ClientPostLogoutRedirectUris_Clients_ClientId] FOREIGN KEY ([ClientId]) REFERENCES [Clients] ([Id]) ON DELETE CASCADE
+);
+2022-07-25 16:39:06.186 +03:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [ClientProperties] (
+    [Id] int NOT NULL IDENTITY,
+    [Key] nvarchar(250) NOT NULL,
+    [Value] nvarchar(2000) NOT NULL,
+    [ClientId] int NOT NULL,
+    CONSTRAINT [PK_ClientProperties] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_ClientProperties_Clients_ClientId] FOREIGN KEY ([ClientId]) REFERENCES [Clients] ([Id]) ON DELETE CASCADE
+);
+2022-07-25 16:39:06.188 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [ClientRedirectUris] (
+    [Id] int NOT NULL IDENTITY,
+    [RedirectUri] nvarchar(2000) NOT NULL,
+    [ClientId] int NOT NULL,
+    CONSTRAINT [PK_ClientRedirectUris] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_ClientRedirectUris_Clients_ClientId] FOREIGN KEY ([ClientId]) REFERENCES [Clients] ([Id]) ON DELETE CASCADE
+);
+2022-07-25 16:39:06.191 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [ClientScopes] (
+    [Id] int NOT NULL IDENTITY,
+    [Scope] nvarchar(200) NOT NULL,
+    [ClientId] int NOT NULL,
+    CONSTRAINT [PK_ClientScopes] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_ClientScopes_Clients_ClientId] FOREIGN KEY ([ClientId]) REFERENCES [Clients] ([Id]) ON DELETE CASCADE
+);
+2022-07-25 16:39:06.195 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [ClientSecrets] (
+    [Id] int NOT NULL IDENTITY,
+    [Description] nvarchar(2000) NULL,
+    [Value] nvarchar(4000) NOT NULL,
+    [Expiration] datetime2 NULL,
+    [Type] nvarchar(250) NOT NULL,
+    [Created] datetime2 NOT NULL,
+    [ClientId] int NOT NULL,
+    CONSTRAINT [PK_ClientSecrets] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_ClientSecrets_Clients_ClientId] FOREIGN KEY ([ClientId]) REFERENCES [Clients] ([Id]) ON DELETE CASCADE
+);
+2022-07-25 16:39:06.197 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [IdentityResourceClaims] (
+    [Id] int NOT NULL IDENTITY,
+    [Type] nvarchar(200) NOT NULL,
+    [IdentityResourceId] int NOT NULL,
+    CONSTRAINT [PK_IdentityResourceClaims] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_IdentityResourceClaims_IdentityResources_IdentityResourceId] FOREIGN KEY ([IdentityResourceId]) REFERENCES [IdentityResources] ([Id]) ON DELETE CASCADE
+);
+2022-07-25 16:39:06.199 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [IdentityResourceProperties] (
+    [Id] int NOT NULL IDENTITY,
+    [Key] nvarchar(250) NOT NULL,
+    [Value] nvarchar(2000) NOT NULL,
+    [IdentityResourceId] int NOT NULL,
+    CONSTRAINT [PK_IdentityResourceProperties] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_IdentityResourceProperties_IdentityResources_IdentityResourceId] FOREIGN KEY ([IdentityResourceId]) REFERENCES [IdentityResources] ([Id]) ON DELETE CASCADE
+);
+2022-07-25 16:39:06.205 +03:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_ApiResourceClaims_ApiResourceId] ON [ApiResourceClaims] ([ApiResourceId]);
+2022-07-25 16:39:06.206 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_ApiResourceProperties_ApiResourceId] ON [ApiResourceProperties] ([ApiResourceId]);
+2022-07-25 16:39:06.207 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX [IX_ApiResources_Name] ON [ApiResources] ([Name]);
+2022-07-25 16:39:06.209 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_ApiResourceScopes_ApiResourceId] ON [ApiResourceScopes] ([ApiResourceId]);
+2022-07-25 16:39:08.549 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_ApiResourceSecrets_ApiResourceId] ON [ApiResourceSecrets] ([ApiResourceId]);
+2022-07-25 16:39:08.552 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_ApiScopeClaims_ScopeId] ON [ApiScopeClaims] ([ScopeId]);
+2022-07-25 16:39:08.556 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_ApiScopeProperties_ScopeId] ON [ApiScopeProperties] ([ScopeId]);
+2022-07-25 16:39:08.560 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX [IX_ApiScopes_Name] ON [ApiScopes] ([Name]);
+2022-07-25 16:39:08.563 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_ClientClaims_ClientId] ON [ClientClaims] ([ClientId]);
+2022-07-25 16:39:08.568 +03:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_ClientCorsOrigins_ClientId] ON [ClientCorsOrigins] ([ClientId]);
+2022-07-25 16:39:08.571 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_ClientGrantTypes_ClientId] ON [ClientGrantTypes] ([ClientId]);
+2022-07-25 16:39:08.574 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_ClientIdPRestrictions_ClientId] ON [ClientIdPRestrictions] ([ClientId]);
+2022-07-25 16:39:08.578 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_ClientPostLogoutRedirectUris_ClientId] ON [ClientPostLogoutRedirectUris] ([ClientId]);
+2022-07-25 16:39:08.580 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_ClientProperties_ClientId] ON [ClientProperties] ([ClientId]);
+2022-07-25 16:39:08.582 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_ClientRedirectUris_ClientId] ON [ClientRedirectUris] ([ClientId]);
+2022-07-25 16:39:08.583 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX [IX_Clients_ClientId] ON [Clients] ([ClientId]);
+2022-07-25 16:39:08.584 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_ClientScopes_ClientId] ON [ClientScopes] ([ClientId]);
+2022-07-25 16:39:08.585 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_ClientSecrets_ClientId] ON [ClientSecrets] ([ClientId]);
+2022-07-25 16:39:08.586 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_IdentityResourceClaims_IdentityResourceId] ON [IdentityResourceClaims] ([IdentityResourceId]);
+2022-07-25 16:39:08.588 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_IdentityResourceProperties_IdentityResourceId] ON [IdentityResourceProperties] ([IdentityResourceId]);
+2022-07-25 16:39:08.590 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX [IX_IdentityResources_Name] ON [IdentityResources] ([Name]);
+2022-07-25 16:39:08.590 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220723224138_InitialDbMigration', N'3.1.9');
+2022-07-25 16:39:20.070 +03:00 [INF] Entity Framework Core 3.1.9 initialized 'PersistedGrantDbContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer' with options: MigrationsAssembly=IdentityServer_Ad, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null 
+2022-07-25 16:39:20.391 +03:00 [INF] Executed DbCommand (18ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2022-07-25 16:39:20.417 +03:00 [INF] Executed DbCommand (16ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2022-07-25 16:39:20.420 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2022-07-25 16:39:20.421 +03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2022-07-25 16:39:20.430 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2022-07-25 16:39:20.448 +03:00 [INF] Applying migration '20220723224201_InitialDbMigration'.
+2022-07-25 16:39:20.491 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [DeviceCodes] (
+    [UserCode] nvarchar(200) NOT NULL,
+    [DeviceCode] nvarchar(200) NOT NULL,
+    [SubjectId] nvarchar(200) NULL,
+    [SessionId] nvarchar(100) NULL,
+    [ClientId] nvarchar(200) NOT NULL,
+    [Description] nvarchar(200) NULL,
+    [CreationTime] datetime2 NOT NULL,
+    [Expiration] datetime2 NOT NULL,
+    [Data] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_DeviceCodes] PRIMARY KEY ([UserCode])
+);
+2022-07-25 16:39:20.493 +03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [PersistedGrants] (
+    [Key] nvarchar(200) NOT NULL,
+    [Type] nvarchar(50) NOT NULL,
+    [SubjectId] nvarchar(200) NULL,
+    [SessionId] nvarchar(100) NULL,
+    [ClientId] nvarchar(200) NOT NULL,
+    [Description] nvarchar(200) NULL,
+    [CreationTime] datetime2 NOT NULL,
+    [Expiration] datetime2 NULL,
+    [ConsumedTime] datetime2 NULL,
+    [Data] nvarchar(max) NOT NULL,
+    CONSTRAINT [PK_PersistedGrants] PRIMARY KEY ([Key])
+);
+2022-07-25 16:39:20.494 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX [IX_DeviceCodes_DeviceCode] ON [DeviceCodes] ([DeviceCode]);
+2022-07-25 16:39:20.494 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_DeviceCodes_Expiration] ON [DeviceCodes] ([Expiration]);
+2022-07-25 16:39:20.495 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_PersistedGrants_Expiration] ON [PersistedGrants] ([Expiration]);
+2022-07-25 16:39:20.499 +03:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_PersistedGrants_SubjectId_ClientId_Type] ON [PersistedGrants] ([SubjectId], [ClientId], [Type]);
+2022-07-25 16:39:20.499 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX [IX_PersistedGrants_SubjectId_SessionId_Type] ON [PersistedGrants] ([SubjectId], [SessionId], [Type]);
+2022-07-25 16:39:20.500 +03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20220723224201_InitialDbMigration', N'3.1.9');
+2022-07-25 16:40:14.710 +03:00 [INF] Seeding database...
+2022-07-25 16:40:16.480 +03:00 [INF] Done seeding database.

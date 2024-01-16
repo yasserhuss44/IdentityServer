@@ -1,0 +1,47 @@
+﻿@model  CustomIdentityServer4.Controllers.TwoFactorAuthModel
+
+<div class="login-page">
+    <div class="lead">
+        <h1>Two factor authentication</h1>
+        <p>Complete loggin</p>
+    </div>
+
+    <partial name="_ValidationSummary" />
+
+    <div class="row">
+ 
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Local Account</h2>
+                    </div>
+
+                    <div class="card-body">
+                        <form asp-route="Login">
+                            <input type="hidden" asp-for="ReturnUrl" />
+                            <input type="hidden" asp-for="TokenId" />
+
+                            <div class="form-group">
+                                <label asp-for="OTP"></label>
+                                <input class="form-control" placeholder="Enter Otp here" asp-for="OTP" autofocus>
+                            </div> 
+                            @if (Model.AllowRememberLogin)
+                            {
+                                <div class="form-group">
+                                    <div class="form-check">
+                                        <input class="form-check-input" asp-for="RememberLogin">
+                                        <label class="form-check-label" asp-for="RememberLogin">
+                                            Remember My Login
+                                        </label>
+                                    </div>
+                                </div>
+                            }
+                            <button class="btn btn-primary" name="button" value="login">Login</button>
+                            <button class="btn btn-secondary" name="button" value="cancel">Cancel</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+   
+    </div>
+</div>
