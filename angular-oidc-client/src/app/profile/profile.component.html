@@ -1,0 +1,15 @@
+<ng-container *ngIf="loginResponse.isAuthenticated">
+  <button (click)="logout()">Logout</button>
+  <a href="/weather">Weather</a>
+
+  <h1>isAuthenticated:</h1>
+  {{ loginResponse.isAuthenticated }}
+  <h1>accessToken:</h1>
+  {{ loginResponse.accessToken }}
+  <h1>accessToken:</h1>
+  {{ loginResponse.idToken }}
+  <h1>configId:</h1>
+  {{ loginResponse.configId }}
+  <h1>userData:</h1>
+  {{ loginResponse.userData | json }}
+</ng-container>
