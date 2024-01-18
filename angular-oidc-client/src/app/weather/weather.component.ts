@@ -8,6 +8,7 @@ import { LocalStorageService } from '../LocalStorage.service';
   styleUrls: ['./weather.component.scss'],
 })
 export class WeatherComponent implements OnInit {
+  weatherList: any;
   ngOnInit(): void {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
@@ -23,7 +24,10 @@ export class WeatherComponent implements OnInit {
 
     this.httService
       .get('https://localhost:6001/WeatherForecast', httpOptions)
-      .subscribe((r) => console.log(r));
+      .subscribe((r) => {
+        console.log(r);
+        this.weatherList = r;
+      });
   }
   constructor(
     private httService: HttpClient,
